@@ -1,0 +1,1077 @@
+rm(list = ls())
+x1 <- 1
+x1 
+
+typeof(x1)
+mode(x1)
+storage.mode(x1)
+class(x1)
+
+0.1 * 0.1 == 0.01
+
+v1 <- 1:3
+v1
+
+v2 <- 3:1
+v2
+
+typeof(v1)
+mode(v1)
+class(v1)
+storage.mode()
+
+
+## wlasne 
+x <- 1 : 10
+x
+typeof(x)
+mode(x)
+class(x)
+storage.mode(x)
+
+y <- x + 1 
+y
+typeof(y)
+object.size(y)
+
+z <- x + 1L
+z
+typeof(z)
+object.size(z)
+## 
+
+x2 <- 1L
+x2
+x1
+object.size(x2)
+object.size(x1)
+
+typeof(x2)
+mode(x2)
+class(x2)
+
+typeof(x1)
+mode(x1)
+class(x1)
+## uzycie assign
+
+assign("x3", sqrt(2))
+x3
+typeof(x3)
+mode(x3)
+
+assign("x", sqrt(10000 * (2.34)^2))
+x
+typeof(x)
+mode(x)
+
+assign("x4", x1)
+x4
+
+assign(paste("to", "jest", "symbol", sep = "_"), sqrt(3))
+to_jest_symbol
+
+## uzycie paste
+paste("to", "moje", "pierwsze", "uzycie", "funkcji", "paste", sep = " * ")
+paste(1, "dwa", "3", "cztery", 5, 6, sep = "_")
+paste(1,'*', 2, "rowna", "się", 2, sep = " ")
+
+## letters i LETTERS
+letters
+LETTERS
+
+typeof(letters)
+mode(letters)
+class(letters)
+
+a <- as.array(letters, LETTERS)
+a
+typeof(a)
+mode(a)
+is.array(a)
+
+array(l = letters, L = LETTERS) -> a2
+
+a2 <- array(rnorm(100), c(10, 5, 2))
+a2
+a2[1, 1, 1]
+
+a3 <- array(rnorm(100), 
+            c(10, 5, 2),
+            dimnames = list(paste("pierwsza", 1:10, sep = "."), 
+                            paste("druga", 1:5, sep = "."), 
+                            paste("trzecia", 1:2, sep = "." )))
+a3
+typeof(a3)
+mode(a3)
+class(a3)
+## MATRIX
+
+m1 <- matrix(rnorm(100), 
+             ncol = 10, 
+             nrow = 10,
+             dimnames = list(paste("wiersz", 1:10, sep = " "),
+                             paste("kolumna", 1:10, sep = " ")))
+
+m1
+typeof(m1)
+mode(m1)
+class(m1)
+
+
+is.atomic(m1)
+is.recursive(m1)
+
+f1 <- factor(c("zły", "dobry"))
+f1
+
+typeof(f1)
+mode(f1)
+class(f1)
+
+f2 <- factor(c("zły", "dobry"), ordered = TRUE )
+f2
+
+typeof(f2)
+mode(f2)
+class(f2)
+
+as.numeric(f1)
+as.numeric(f2)
+
+## LISTY
+?list
+l1 <- list(cyfry = 0:9, male_litery = letters, wartosci_logiczne = c(TRUE, FALSE))
+l1
+
+l1[1]
+l1[[1]]
+l1["cyfry"]
+l1$cyfry
+
+typeof(l1)
+mode(l1)
+class(l1)
+
+is.atomic(l1)
+is.recursive(l1)
+
+## ramki danych
+df1 <- data.frame(pierwsza = rnorm(10), druga = runif(10))
+df1
+typeof(df1)
+mode(df1)
+class(df1)
+is.atomic(df1)
+is.recursive(df1)
+
+df2 <- df1
+df2
+df2 <- NULL
+df2
+
+typeof(df2)
+mode(df2)
+class(df2)
+is.atomic(df2)
+is.recursive(df2)
+ 
+## listy
+l4 <- list(liczby = 1:10, liczby1 = 20:10, male_litery = letters, duze_litery = sort(LETTERS, decreasing = TRUE))
+l4
+l4[1]
+l4["liczby"]
+l4[[2]]
+l4$ male_litery
+
+## mnozenie macierzy przez siebie
+a <- matrix( 1:9, ncol =3, nrow = 3)
+b <- matrix( 1:9, ncol =3, nrow = 3)
+
+a
+b
+
+a %*% b
+a %/% b
+a %in% b
+a %% b
+## wektor i NA 
+v <- c(0, 9, 17, NA, NaN)
+v
+
+is.na(v)
+is.nan(v)
+
+v[is.na(v)]
+v[is.nan(v)]
+
+## laboratorium 2
+w1 <- 1:10
+w1
+
+w1[1:3]
+w1[c(2, 4, 7)]
+
+w1[2:10]
+w1[c(1:4, 6:10)]
+w1[-1]
+w1[-5]
+w1[c(-1, -5)]
+w1[-c(1, 5)]
+
+w2 <- c(a = 1, b = 2, c = 3)
+w2
+w2[1]
+w2["a"]
+w2[c("a", "c")]
+w2[-2]
+w2[-c(2, 1)]
+ 
+## wydzielanie z macierzy
+m1 <- matrix(rnorm(100), 10, 10)
+m1
+## pierwsza kolumna
+m1[,1]
+## pierwszy wiersz
+m1[1,]
+m1[5, 4]
+m1[,-1]
+m1[-1,]
+m1[,c(3, 5)]
+m1[c(1, 7, 9),]
+m1[c(2, 3, 8), c(4, 9)]
+
+w1
+w1[w1 <= 4]
+w1[w1 >= 4]
+
+w2 <- 10:1
+w2[w2 <= 4]
+w2[w2 > 4]
+
+w2[w1 <= 4]
+w2[w1 > 4]
+w1
+w2
+
+osoba <- list(name=c("Anna","Joanna"), surname="Kowalska", age = 25, married = TRUE)
+
+osoba[[1]] -> k1
+k1
+osoba[1] -> k2
+k2
+typeof(k1)
+typeof(k2)
+str(k1)
+str(k2)
+osoba$name
+typeof(osoba$name)
+
+## znajdowanie wartosci po wartosciach max itp za pomoca which
+rm(list = ls())
+w1 <- c(1,3,6,10,10.5,12)
+which(w1 == 10.5)
+which(w1 == c(1, 3, 6))
+which(w1 <= 6)
+w1[which(w1 <= 6)]
+w1[which.max(w1)]
+w1[which.min(w1)]
+
+w4 <- c(1:10, 10:1)
+w4
+w4[which.max(w4)]
+w4[which.min(w4)]
+which.min(w4)
+which.max(w4)
+w4[w4 == max(w4)]
+w4[w4 == min(w4)]
+
+a <- 1:10
+a[4]
+a[4] <- 0
+a
+a <- a%%3
+a
+
+b <- seq(1, 10, 2)
+b
+c <- seq(10, 1, -2)
+c
+?seq
+d <- seq(1, 10, length.out = 3)
+d
+d[] <- 0
+d
+d[5] <- 1
+d
+
+x <- list(1,2,3)
+x
+x[[1]] <- c(5, 10)
+x
+x[[5]] <- 22
+x
+y <- x
+y
+y[1] <- NULL
+y
+y <- x
+y[1] <- list(NULL)
+y
+
+## genarator liczb losowych
+set.seed(15032021)
+p1 <- sample(1:10, 5)
+p1
+
+p2 <- sample(1:10, 3)
+p2
+
+p3 <- sample(1:10, replace = TRUE)
+p3
+
+p4 <- sample(LETTERS[1:3], 5, replace = TRUE, prob = c(0.5, 0.4, 0.1))
+p4
+## wyrzucanie na ekran
+n1 <- c("Ala", "ma", "rudego", "kota")
+print(n1)
+paste(n1) 
+paste(n1, sep = "-", collapse = " " )
+paste0(n1)
+paste0(n1, sep = "-", collapse = " " )
+cat(n1)
+
+?cat
+?format
+1/3
+n2 <- format(1/3, digit = 2)
+n2
+
+typeof(n2)
+typeof(1/3)
+format(1/3, scientific = TRUE)
+format(1/3, sci = TRUE)
+
+1515 %% 2 == 0
+if(1515 %% 2 == 0) paste("liczba 1515 jest parzysta") else paste("liczba 1515 jest nieparzysta")
+parzysta <- function(x){
+  if(x %% 2 == 0){
+    cat(c("Liczba", x, "jest", "parzysta"))
+  }
+  else{
+    cat(c("Liczba", x, "jest", "nieparzysta"))
+  }
+}
+parzysta(100)
+parzysta(157)
+
+dz <- function(x){
+  for(i in 1:x)
+    if(i %% 3 == 0) cat(i, " ") 
+}
+dz(150)
+
+x <- 150 
+(1:x)[(1:x) %% 3 == 0]
+
+dzielniki <- function(x){
+  for(i in 1:x)
+    if(x %% i == 0) cat(i, collapse = " ")
+}
+dzielniki(40)
+
+ramka <- data.frame(id = 1:10, s1 = sample(1:10, 10), s2 = sample(10:20,10, replace = TRUE))
+ramka                    
+
+for(i in 2:3){
+  print(mean(ramka[,i])) 
+}
+
+set.seed(1512)
+#tworzenie macierzy z rozkladu jednostajnego z odcinka 1 , do -2
+m1 <- matrix(runif(50, min = -1, max = 2), ncol = 5, nrow = 10)
+m1
+m1[c(5,6),c(2,4)]
+m1[-5,]
+
+?lapply
+?apply
+#liczenie sredniej wiersz m1
+apply(m1, MARGIN = 1, FUN = mean)
+#liczenie wariancji z wierszy m1
+apply(m1, MARGIN = 1, FUN = var)
+#licznie sumy z wierszy macierzt m1
+apply(m1 , MARGIN = 1, FUN = sum)
+#liczenie wartosci bezwzgledneh z  macierzy m1
+apply(m1, MARGIN = c(1, 2), FUN = abs)
+abs(m1)
+#wykorzystanie funkcji anonimowej podnoszacej do kwadratu
+apply(m1 , MARGIN = c(1, 2), FUN = function(x) x^2)
+# z wykorzystaniem wlasnej funkcji
+kwadrat <- function(x) x^2
+apply(m1 , MARGIN = c(1, 2), FUN = kwadrat )
+#tworzenie funkcji odejmujacej od wiersza sredniej
+normalizacja <- function(x) x - mean(x)
+
+apply( m1, MARGIN = 1, FUN = normalizacja)
+apply(m1, MARGIN = 1, FUN = function(x) {x - mean(x)})
+apply(m1, MARGIN = 2, FUN = function(x) {x - mean(x)})
+?sapply
+
+x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
+# ciag
+x$a
+x$beta
+# compute the list mean for each list element
+#srednia dla wszystkich ciagow z listy
+lapply(x, mean)
+l1 <- lapply(x, mean)
+l1
+typeof(l1)
+# median and quartiles for each list element
+# mediana i kwartyle
+lapply(x, quantile, probs = 1:3/4)
+s1 <- sapply(x, quantile, probs = 1:3/4)
+s1
+typeof(s1)
+class(s1)
+i39 <- sapply(3:9, seq) # list of vectors
+sapply(i39, fivenum) #fivenum max i min kwartyle zwraca
+i39
+typeof(i39)
+
+
+#replicate funkcja po exp wykladniczy rozklad 
+vapply(i39, fivenum,
+       c(Min. = 0, "1st Qu." = 0, Median = 0, "3rd Qu." = 0, Max. = 0))
+sapply(i39, fivenum, c(Min. = 0, "1st Qu." = 0, Median = 0, "3rd Qu." = 0, Max. = 0))
+## sapply(*, "array") -- artificial example
+(v <- structure(10*(5:8), names = LETTERS[1:4]))
+typeof(v)
+class(v)
+f2 <- function(x, y) outer(rep(x, length.out = 3), y)
+(a2 <- sapply(v, f2, y = 2*(1:5), simplify = "array"))
+typeof(a2)
+
+class(a2)
+a.2 <- vapply(v, f2, outer(1:3, 1:5), y = 2*(1:5))
+a.2
+
+hist(replicate(100, mean(rexp(10))))
+c1 <- rnorm(10, )
+m2  <- matrix(ncol = 5, nrow = 6)
+
+
+#zajecia 5
+
+#rzucam dwoma kostkamirówne iloczynomi oczek na kostce
+#stworzyc macierz taka
+rzut <- function(n){
+  macierz_0 <- matrix(0, ncol = n, nrow  = n)
+  for(i in 1:n){
+   for(i in 1:n){
+     macierz[i, j] <- i*j
+   }
+  }
+  macierz
+}
+rzut(6)
+
+macierz <- matrix(0, ncol = 6, nrow = 6)
+macierz
+for(i in 1:6){
+  for(j in 1:6){
+    macierz[i, j] <- i * j
+    
+  }
+}
+macierz
+macierz_2 <- matrix(0, ncol = 6, nrow = 6)
+macierz_2
+
+for(i in 1:6){
+  for(j in 1:6){
+    macierz_2[i,j] <- abs(i-j)
+  }
+}
+macierz_2
+macierz_3 <- matrix(0, ncol = 6, nrow = 6)
+macierz_3
+for( i in 1:6){
+  for(j in 1:6){
+    macierz_3[i, j] <- i + j
+  }
+}
+macierz_3
+table(macierz_3) #zlicza wartosci ile razy wystapiły
+
+ciag <- 1:10
+ciag
+sum(ciag)
+ciag/sum(ciag)
+
+table(macierz_3)/sum(table(macierz))
+ciag <- 1:10
+sum(table(macierz_3))
+
+rzut <- function(n){
+  macierz_0 <- matrix(0, ncol = n, nrow  = n)
+  for(i in 1:n){
+    for(j in 1:n){
+      macierz_0[i, j] <- i * j
+    }
+  }
+  #return(macierz_0)
+  #macierz_0
+  #return(list(macierz = macierz_0,rozklad = table(macierz_0)/sum(table(macierz_0))))
+ list(macierz = macierz_0, rozklad = table(macierz_0)/sum(table(macierz_0)))
+}
+wynik <- rzut(6)
+wynik$rozklad
+wynik$macierz
+# rzut dwoma monetami (0, 1) i kostka szczescienna (3 for) na monetach sa 0 i 1 kostka 1:6,
+# zmienna losowa przyjmuje wartosci rowne sumie wyrzuconych oczek i iloczynu wyniku na monetach, 
+# podaj macierz wynikow  oraz rozklad
+# moj pomysl chyba zle
+t1 <- array(0, dim = c(2, 2, 6))
+t1
+for(i in 0:1){
+  for(j in 0:1){
+    for(k in 1:6){
+      t1[i+1, j+1, k] <- k + i * j 
+    }
+  }
+}
+t1
+table(t1)
+table(t1)/sum(table(t1))
+
+
+t2 <- array(0 , dim = c(2, 2, 6))
+t2
+for(i in 1:2){
+  for(j in 1:2){
+    for(k in 1:6){
+      t2[i, j, k] <- k + (i -1) * (j-1) 
+    }
+  }
+}
+t2
+
+fun1 <- function(x, y){
+  x+y
+}
+fun1(2,3)
+
+#Napisz funkcję, która wyznacza pierwiastki równania kwadratowego. Funkcja ta przyjmuje
+#trzy argumenty: a, b i c. Wywołaj funkcję z przykładowymi danymi.
+
+fun2 <- function(a, b, c){
+  if(a == 0) {
+    cat(" to jest rowanienie liniowe y =", b ,"x + ", c)
+    x = -c /b
+    cat(" i posiada jedno rozwiazanie \n x =", x)
+    }
+  else{
+    delta = b * b - (4 * a * c)
+    if(delta > 0) {
+      x1 = (-b - sqrt(delta))/ 2 * a
+      x2 = (-b + sqrt(delta))/ 2 * a
+      cat(" funckja posiada dwa rozwiazania ;\n x1= ", x1 , "\n x2 =", x2)
+      }
+    else if (delta < 0) {
+      cat( "brak rozwiazania")
+    }
+    else {
+      x = -b / 2 * a;
+      cat( "funkcja posiada rozwiazanie jedno \n x =", x)
+    }
+  }
+}
+fun2(1, 2, 1)
+fun2(1, -5, 6)
+fun2(0, 4, 7)
+
+delta <- function(a, b, c){ 
+  b*b-4*a*c
+}
+delta(1, -5, 6)
+pierwiastki <- function(a, b, c) {
+  delta <- delta(a, b, c)
+  if(delta < 0) {
+    cat("Nie ma pierwiastkow.\n")
+  } else if(delta == 0) {
+    cat(paste("Jest dokladnie jedno rozwiazanie rowne ", -b/(2*a) ))
+  } else {
+    cat(paste("Sa dwa rozwiazania", (-b-sqrt(delta))/(2*a), (-b+sqrt(delta))/(2*a)))
+  }
+}
+pierwiastki(1, -5, 6)
+
+#Napisz funkcję, która jako argument przyjmuje wektor liczb. Funkcja ma zwrócić w
+#wyniku 3 elementy najmniejsze i 3 elementy największe. Funkcja powinna obsłużyć
+#przypadek, w którym podany wektor zawiera mniej niż 3 elementy. W takim przypadku
+#funkcja powinna wyświetlić komunikat, że wektor jest za krótki. Wywołaj funkcję z
+#przykładowymi danymi.
+
+wekt <- function(x){
+  if(length(x) < 3){
+    cat("wektor ma mniej niż 3 elementy")
+  }
+  else {
+    y <- sort(x)
+    z <- sort(x, decreasing = TRUE)
+    cat(paste("3 najmniejsze elementy wektora: ", y[1],y[2], y[3], "\n"))
+    cat(paste("3 najwieksze elementy wektora ",  z[1], z[2],z [3]))
+  }
+  
+}
+wekt(1:10)
+# wektor <- 10:1 
+ #sort(wektor)[1:3]
+
+wekt1 <- function(x){
+  if(length(x) < 3){
+    cat("wektor ma mniej niż 3 elementy")
+  }
+  else {
+    print(head(sort(x),3L )) #bierze gorne
+    print(tail(sort(x), 3L)) #bierze dolne
+    y <- sort(x)
+    z <- sort(x, decreasing = TRUE)
+    cat(paste("3 najmniejsze elementy wektora: ", y[1],y[2], y[3], "\n"))
+    cat(paste("3 najwieksze elementy wektora ",  z[1], z[2],z [3]))
+  }
+  
+}
+
+w <- c(2, 3, 4, 4, 3, 2)
+length(w[w==2])
+
+ilerazy <- function(w, l){
+ length(w[w == l])
+}
+ilerazy(w, 3)
+
+bool_ilerazy <- function(w, l){
+  if(length(w[w == l]) == 1 || length(w[w == l] == 6)){
+    
+  }
+}
+#zajecia 19.04.2021
+rm(list = ls())
+#Napisz funkcję, która przyjmuje dwa argumenty: pierwszym jest wektor, a drugim liczba
+#całkowita b. Program zwraca tylko te elementy wektora, które dzielą się bez reszty przez b.
+#Wywołaj funkcję z przykładowymi danymi
+w <- (17:19)
+38 %% 4 == 0
+
+wektor <- function(w, b){
+  w[w %% b == 0]
+}
+wektor(w,6)
+
+w <- c(17, 18, 19)
+
+dziel <- function(w, y){
+  for(i in y){
+    if(i %% y == 0){cat(paste("\ndzieli sie:",i))}
+  }
+}
+dziel(w, 6)
+
+#1. Stwórz funkcje suma, która przyjmuje dowolną liczbę argumentów (w tym argumenty liczbowe, tekstowe).
+#2. Skonwertuj wprowadzone argumenty na liczbę.
+#3. Dodaj wszystkie argumenty funkcji wykorzystując pętle for. Jeśli którakolwiek z wprowadzonych wartości nie może zostać 
+# skonwertowany na liczbę pomiń argument podczas dodawania. Wykorzystaj konstrukcje if.
+#4. Wywołaj funkcje używając podanych argumentów: suma(1:9, "test", 1:9)
+is.na("wynik")
+is.na(2)
+as.numeric("dwa")
+sumowanie <- function(...){
+  suma = 0
+  for(e in c(...)){
+      n <- as.numeric(e)
+      if(is.na(n) == FALSE)
+      {
+        suma <- suma + n
+      }
+  }
+  suma
+}
+sumowanie(1:10)
+sumowanie(1:9, "test", 1:9)
+sumowanie(1:9)
+x <- as.vector(1:9, "test", 1:9)
+x
+as.list(1:9, "test", 1:9)
+length(as.list(1:9, "test", 1:9))
+length(x)
+suma2 <- function(...) {
+  
+  sum(as.numeric(c(...)), na.rm = TRUE)
+  
+}
+#1. Stwórz funkcje srednia, która przyjmuje dowolną liczbę argumentów (w tym argumenty liczbowe, tekstowe).
+#2. Skonwertuj wprowadzone argumenty na liczbę.
+#3. Oblicz średnią wszystkich argumentów funkcji wykorzystując pętle for. Jeśli którakolwiek z wprowadzonych wartości nie może zostać skonwertowana na liczbę pomiń argument podczas obliczania średniej. Wykorzystaj konstrukcje if.
+#4. Wywołaj funkcje używając podanych argumentów: srednia(1:9, "test", 1:9)
+srednia <- function(...){
+  srednia <- 0;
+  suma = 0;
+  liczba_wynikow = 0
+  for(e in c(...)){
+    n <- as.numeric(e)
+    if(is.na(n) == FALSE)
+    {
+      liczba_wynikow <- liczba_wynikow + 1
+      suma <- suma + n
+      srednia <- suma / liczba_wynikow
+    }
+  }
+  srednia
+}
+srednia(1:9, "test", 1:9)
+suma2 <- function(...) {
+  
+  sum(as.numeric(c(...)), na.rm = TRUE)
+  
+}
+suma2(1:10)
+suma2(1:9, "test", 1:9)
+suma2(1:9)
+srednia <- function(...){
+  mean(as.numeric(c(...)), na.rm = TRUE)
+}
+srednia(1:9, "test", 1:9)
+mean(c(1:9,1:9))
+
+#1. Stwórz funkcje maksymalna, która przyjmuje dowolną liczbę argumentów (w tym argumenty liczbowe, tekstowe).
+#2. Skonwertuj wprowadzone argumenty na liczbę.
+#3. Znajdź argument o maksymalnej wartości wykorzystując pętle for oraz konstrukcji if. Jeśli którakolwiek z wprowadzonych wartości nie może zostać skonwertowany na liczbę pomiń argument podczas przeszukiwania wartości.
+#4. Wywołaj funkcje używając podanych argumentów: maksymalna("test", 1:9, "test")
+
+# funkcja ktora zamieni radiany na stopnie:
+
+# 2pi=360
+# r=d
+# d=360r/2pi
+# d=180r/pi
+
+# 1 sposób:
+rad2deg <- function(x) {
+  180 * x / pi
+}
+rad2deg(pi)
+
+
+#2 sposob:
+radianyNaStopnie <- function(radiany) {
+  (radiany * 180) / 3.14
+}
+radianyNaStopnie(3)
+
+
+# funkcja ktora zamieni stopnie na radiany:
+stopnieNaRadiany <- function(stopnie) {
+  (pi * stopnie) / 180
+}
+stopnieNaRadiany(5)
+wynik <- stopnieNaRadiany(5)
+wynik
+
+
+deg2rad_2 <- function(stopnie) {
+  list(
+    nazwa = "Funkcja zamieniajaca stopnie na radiany",
+    argument = stopnie,
+    wynik = (pi * stopnie) / 180
+  )
+}
+deg2rad_2(5)
+deg2rad_2("a")
+
+deg2rad_3 <- function(stopnie) {
+  if(!is.numeric(stopnie)) {
+    cat("Argument", stopnie,  "nie jest liczba")
+    
+  } else {
+    list(
+      nazwa = "Funkcja zamieniajaca stopnie na radiany",
+      argument = stopnie,
+      wynik = (pi * stopnie) / 180
+    )
+  }
+}
+wynik <- deg2rad_3(5)
+wynik
+deg2rad_3("a")
+
+
+deg2rad_4 <- function(stopnie) {
+  list(
+    nazwa = "Funkcja zamieniajaca stopnie na radiany",
+    argument = stopnie,
+    wynik = ifelse(is.numeric(stopnie), (pi * stopnie) / 180, NA )
+  )
+}
+deg2rad_4(5)
+deg2rad_4("a")
+deg2rad_4(1:5)
+?ifelse
+?sapply
+
+deg2rad_5 <- function(stopnie) {
+  list(
+    nazwa = "Funkcja zamieniajaca stopnie na radiany",
+    argument = stopnie,
+    wynik = sapply(1:length(stopnie), function(x) ifelse(is.numeric(stopnie[x]), (pi * stopnie[x]) / 180, NA ))
+  )
+}
+deg2rad_5(5)
+deg2rad_5("a")
+deg2rad_5(1:5)
+deg2rad_5(c(1:5), "a", 5:1)
+
+deg2rad_6 <- function(deg){
+  deg1 <- as.numeric(deg)
+  list(
+    nazwa = "Funkcja zamieniajaca stopnie na radiany",
+    argument = deg,
+    wynik = sapply(1:length(deg1), function(x) ifelse(is.numeric(deg1[x]), (pi * deg1) / 180, NA))
+  )
+}
+deg2rad_6(5)
+deg2rad_6("a")
+deg2rad_6(1:5)
+deg2rad_6(c(1:5, "a", 5:1))
+rm(list = ls())
+radiany_na_stopnie <- function(radiany){
+  (radiany * 180) / 3.14
+}
+radiany_na_stopnie_1 <- function(radiany)
+{
+  radiany1 <- as.numeric(radiany)
+  list(
+    nazwa = " Funkcja zamieniajaca radiany na stopnie",
+    dane = radiany,
+    wynik = sapply(1:length(radiany1), function(x) ifelse(is.numeric(radiany1[x]), (180 * radiany1)/pi, NA))
+  )
+}
+radiany_na_stopnie_1(pi)
+
+Fahrenheinta_na_Celsjusza <- function(f)
+{
+  wynik <- list(
+    nazwa = "Funkcja zmieniajaca Fahremheinta na Celcjusza",
+    dane = f,
+    wynik = (f - 32)/1.8
+  )
+  class(wynik) <- "iie"
+  wynik
+}
+Fahrenheinta_na_Celsjusza(1)
+Fahrenheinta_na_Celsjusza(5)
+attr(radiany_stopnie_1(pi))
+class(radiany_stopnie_1(pi))
+ 
+
+# zadanie w grupie
+trojkat <- function(a)
+{
+  wynik <- list(
+    nazwa = "Funkcja obliczajca pole i obwod trojkata rownobocznego",
+    bok_trojkata = a,
+    pole = ((a * a) * sqrt(3))/4,
+    obwod = 3 * a
+  )
+  class(wynik) <- "iie"
+  wynik
+}
+trojkat(3)
+
+
+trojkat <- function(a)
+{
+  wynik <- list(
+    nazwa = "Funkcja obliczajca pole i obwod trojkata rownobocznego",
+    bok_trojkata = a,
+    pole = ((a * a) * sqrt(3))/4,
+    obwod = 3 * a
+  )
+  class(wynik) <- "iie"
+  wynik
+}
+trojkat(3)
+
+
+
+boki <- function(a, b ,c){
+  if ((a + b > c) && (a + c > b) && (b + c > a)){
+    list(
+      wynik = "mozna zbudowac trojkat"
+    )
+  }else{
+    list(
+      wynik = "nie mozna zbudowac trojkata"
+    )
+  }
+}
+boki(2,2,7)
+
+funkcja <- function(drzwi, liczba_symulacji)
+{
+  drzwi <- 1:3
+  liczba_symulacji <- 1:10^6
+  list(
+    nazwa = "prawdopodobieństwo wystapienia",
+    liczba = drzwi[1],
+    ilosc_symulacji = 100000,
+    wynik = abs(drzwi)/abs(liczba_symulacji)
+  )
+}
+funkcja(1, 100000)
+library(tidyverse)
+acsNY <- read_csv("http://www.jaredlander.com/data/acs_ny.csv", 
+                  col_types = cols(ElectricBill = col_integer(), 
+                                   FamilyIncome = col_integer(),
+                                   FamilyType = col_factor(levels = c("Married", "Female Head", "Male Head")),
+                                   HouseCosts = col_integer(),
+                                   Insurance = col_integer(),
+                                   NumBedrooms = col_integer(),
+                                   NumChildren = col_integer(),
+                                   NumPeople = col_integer(), 
+                                   NumRooms = col_integer(),
+                                   NumVehicles = col_integer(), 
+                                   NumWorkers = col_integer()))
+
+
+
+## Zajęcia 12 (31.05.2021)
+acsNY %>% 
+  filter(FamilyType == "Male Head")
+
+acsNY %>% 
+  filter(FamilyType == "Male Head" | FamilyType == "Female Head")
+
+acsNY %>% 
+  filter(FamilyType != "Married")
+
+## mutate() dodaje nowe zmienne i zachowuje istniejące; 
+## transmute() dodaje nowe zmienne i usuwa istniejące
+acsNY %>% 
+  mutate(SredniaLiczbaOsobNaPokoj = NumPeople/NumRooms, 
+         SredniPrzychodNaOsobeWRodzinie = FamilyIncome/NumPeople) -> 
+  acsNew_01
+
+
+acsNew_01 %>%
+  filter(SredniaLiczbaOsobNaPokoj > 2) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n())
+
+summary(acsNew_01)
+
+acsNew_01 %>%
+  mutate(DochodWystarczajacy = ifelse(SredniPrzychodNaOsobeWRodzinie >= 30000, TRUE, FALSE)) %>%
+  View()
+
+acsNew_01 %>%
+  mutate(DochodWystarczajacy = ifelse(SredniPrzychodNaOsobeWRodzinie >= 30000, TRUE, FALSE)) ->
+  acsNew_01
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == TRUE) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n())
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == TRUE) %>%
+  group_by(FamilyType, Language) %>%
+  summarise(LiczbaObserwacji = n())           
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == TRUE) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n(), SredniPrzychodRodziny = mean(FamilyIncome))           
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == TRUE) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n(), SredniPrzychodRodziny = mean(FamilyIncome), Minimum = min(FamilyIncome), 
+            Maksimum = max(FamilyIncome), Wariancja = var(FamilyIncome), OdchylenieStandardowe = sd(FamilyIncome))           
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == TRUE) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n(), SredniPrzychodRodziny = mean(FamilyIncome), Minimum = min(FamilyIncome), 
+            Maksimum = max(FamilyIncome), Wariancja = var(FamilyIncome), OdchylenieStandardowe = sd(FamilyIncome),
+            TypyJezykow = n_distinct(Language))           
+## n_disrinct(Language) to samo co length(unique(x))
+acsNew_01 %>%
+  summarise(TypyJezykow = n_distinct(Language))
+
+acsNew_01 %>%
+  filter(DochodWystarczajacy == FALSE) %>%
+  group_by(FamilyType) %>%
+  summarise(LiczbaObserwacji = n(), SredniPrzychodRodziny = mean(FamilyIncome), Minimum = min(FamilyIncome), 
+            Maksimum = max(FamilyIncome), Wariancja = var(FamilyIncome), OdchylenieStandardowe = sd(FamilyIncome),
+            TypyJezykow = n_distinct(Language)) 
+
+# Utworzyc nowa zmienna, ktora bedzie zawierala logarytmy dziesietne z przychodu rodziny(acsNew_01)
+log10()
+
+paste("Dzień", "dobry,", "jestem", "Ula.")
+paste("Dzień", "dobry,", "jestem", "Ula.", sep = "-")
+paste("Dzień", "dobry,", "jestem", "Ula.", sep = "*-*")
+paste("Dzień", "dobry,", "jestem", "Ula.", collapse = "")
+paste("Dzień", "dobry,", "jestem", "Ula.", sep = "")
+paste(c("Czesc", "Hej", "Witaj"),c("Ula", "Martyna", "Marta"))
+paste("Czesc",c("Ula", "Martyna", "Marta"))
+paste(c("Czesc", "Hej", "Witaj"),c("Ula", "Martyna", "Marta"), c("I zegnaj", "Do widzenia"))
+
+sprintf('Czesc %s o godzinie %s gramy w %s', 'Stasiek', '21', 'chinczyka')
+sprintf('Czesc %s o godzinie %s gramy w %s', c('Stasiek', 'Marta', 'Martyna'), 
+        c('21', '19', '12'), c('chinczyka', 'szachy', 'pilke'))
+
+cat('Uczymy sie \t jezyka R.\n Zaczynamy o godzinie 15')
+paste("Dzień", "dobry,", "jestem", "Ula.\n")
+
+con <- url('http://www.jaredlander.com/data/warTimes.rdata')
+load(con)
+close(con)
+
+warTimes[1:6]
+head(warTimes)
+
+library(tidyverse)
+
+warTimes[str_detect(string = warTimes, pattern = "-")]
+
+czasy_wojny <- str_split(string = warTimes,, pattern = 'ACAEA|-', n = 2 )
+czasy_wojny
+class(czasy_wojny)
+czasy_wojny1 <- str_split(string = warTimes, pattern = 'ACAEA|-', n = 2 , simplify = TRUE)
+czasy_wojny1
+class(czasy_wojny1)
+czas_rozpoczecia <- sapply(czasy_wojny, FUN = function(x) x[1])
+czas_rozpoczecia
+czas_rozpoczecia <- str_trim(czas_rozpoczecia)
+czas_rozpoczecia
+
+czas_rozpoczecia1 <- czasy_wojny1[, 1]
+czas_rozpoczecia1
+
+str_extract(string = czas_rozpoczecia, pattern = "January")
+czas_rozpoczecia[str_detect(string = czas_rozpoczecia, pattern = "January")]
+czas_rozpoczecia
+str_extract(string = czas_rozpoczecia, pattern = "[0-9][0-9][0-9][0-9]")
+str_extract(string = czas_rozpoczecia, pattern = "[0-9]{4}")
+str_extract(string = czas_rozpoczecia, pattern = "\\d{4}")
+str_extract(string = czas_rozpoczecia, pattern = "\\d{1,3}")
+str_extract(string = czas_rozpoczecia, pattern = "^\\d{4}")
+str_extract(string = czas_rozpoczecia, pattern = "\\d{4}$")
+str_extract(string = czas_rozpoczecia, pattern = "^\\d{4}$")
+str_replace(string = czas_rozpoczecia, pattern = "\\d", replacement = "X")
+str_replace_all(string = czas_rozpoczecia, pattern = "\\d", replacement = "X")
+

@@ -1,0 +1,241 @@
+---
+title: "Projekt ze Statystyki Matematycznej"
+author: " Urszula "
+output: html_document
+---
+
+# 1 PRZYGOTOWANIE SRODOWISKA DO PRACY
+## 1.1 Czyszczenie srodowiska
+```{r czyszczenie_danych}
+rm(list = ls())
+```
+
+## 1.2 Podczytanie bibilotek
+```{r}
+library(readr)
+library(tidyverse)
+library(nortest)
+```
+
+# 2. PRZYGOTOWANIE DANYCH DO DALSZEJ PRACY
+## 2.1 Podczytanie danych 
+```{r}
+dane <- read_csv("dane.csv")
+```
+```{r}
+dane %>% head
+```
+## 2.2 Odczytywanie przedzialów ufnosci dla zmiennej barrels08
+
+```{r}
+barrels <- dane$barrels08
+```
+
+### 2.2.1 Przedzial ufnosci dla sredniej liczby **barrels08** dla zmiennych numerycznych o poziomie istotnosci 0.01
+```{r}
+p_ufnosci_dla_sredniej <- function(barrels, alpha = .01) {
+  df <- length(barrels) - 1
+  error <- qt(1 - alpha / 2, df = df) * sd(barrels, na.rm = TRUE) / sqrt(length(barrels))
+  koniec_lewy <- round(mean(barrels, na.rm = TRUE) - error, 2)
+  koniec_prawy <- round(mean(barrels, na.rm = TRUE) + error, 2)
+  cat(paste((1-alpha)*100, "%",
+            "przedzial ufnosci dla sredniej przy zalozeniu, że cecha ma rozklad normalny to:\n [",
+            koniec_lewy, ",", koniec_prawy, "]" ))
+}
+p_ufnosci_dla_sredniej(barrels)
+```
+### 2.2.2 Przedzial ufnosci dla wariancji barrels08 dla zmiennych numerycznych o poziomie istotnosci 0.01
+```{r}
+p_ufnosci_dla_wariancji <- function(barrels, alpha = .01) {
+  df <- length(barrels)
+  koniec_lewy <- round((df -1) * var(barrels) / qchisq(1- alpha/2, df - 1), 2)
+  koniec_prawy <- round((df -1) * var(barrels) / qchisq(alpha/2, df - 1), 2)
+  cat(paste("Przedział ufności dla wariancji wynosi:\n [", koniec_lewy, ",", koniec_prawy, "]\n"))
+}
+p_ufnosci_dla_wariancji(barrels)
+```
+
+## 2.3 Odczytywanie przedzialów ufności dla zmiennej comb08
+```{r}
+comb <- dane$comb08
+```
+### 2.3.1 Przedzial ufnosci dla sredniej liczby comb08 dla zmiennych numerycznych o poziomie istotnosci 0.03
+```{r}
+p_ufnosci_dla_sredniej_2 <- function(comb, alpha = .03) {
+  df <- length(comb) - 1
+  error <- qt(1 - alpha / 2, df = df) * sd(comb, na.rm = TRUE) / sqrt(length(comb))
+  koniec_lewy <- round(mean(comb, na.rm = TRUE) - error, 2)
+  koniec_prawy <- round(mean(comb, na.rm = TRUE) + error, 2)
+  cat(paste((1-alpha)*100, "%",
+            "przedzial ufnosci dla sredniej przy zalozeniu, że cecha ma rozklad normalny to:\n [",
+            koniec_lewy, ",", koniec_prawy, "]" ))
+}
+p_ufnosci_dla_sredniej_2(comb)
+```
+
+
+### 2.3.2 Przedzial ufnosci dla wariancji liczby comb08  dla zmiennych numerycznych o poziomie istotnosci 0.03
+```{r}
+p_ufnosci_dla_wariancji_2 <- function(comb, alpha = .03) {
+  df <- length(comb)
+  koniec_lewy <- round((df -1) * var(comb) / qchisq(1- alpha/2, df - 1), 2)
+  koniec_prawy <- round((df -1) * var(comb) / qchisq(alpha/2, df - 1), 2)
+  cat(paste("Przedział ufności dla wariancji wynosi:\n [", koniec_lewy, ",", koniec_prawy, "]\n"))
+}
+p_ufnosci_dla_wariancji_2(comb)
+```
+
+
+
+## 2.4 Przedzial ufnosci dla roznicy srednich barrels08  i comb08 dla zmiennych numerycznych o poziomie istotnosci 0.01
+```{r}
+p_ufnosci_dla_odchylenia_stan <- function(barrels, comb, alpha = .01) {
+  df <- length(barrels)
+  df2 <- length(comb)
+  koniec_lewy <- round((mean(barrels) - mean(comb)) - dnorm(0.01)/2 *(sqrt(var(barrels)/df + var(comb)/df2)))
+  koniec_prawy <- round((mean(barrels) - mean(comb)) + dnorm(0.01)/2 *(sqrt(var(barrels)/df + var(comb)/df2)))
+  cat(paste("Przedział ufności dla odchylenia standardowego wynosi:\n [", koniec_lewy, ",", koniec_prawy, "]\n"))
+}
+p_ufnosci_dla_odchylenia_stan(barrels, comb)
+```
+# 3 PRZEDZIALY UFNOSCI DLA FRAKCJI
+## 3.1 Podsumowanie zmiennej drive
+```{r}
+drive <- dane %>% 
+  filter(drive == "Rear-Wheel Drive") %>%
+  group_by(drive) %>%
+  summarise(l_obserwacji = n())
+```
+### 3.1.1 Okreslenie liczby drive oraz liczbe obserwacji *Rear-Wheel Drive*
+```{r}
+liczba_drive <- length(dane$drive)
+liczba_drive
+rear_wheel_drive <- drive$l_obserwacji
+rear_wheel_drive
+```
+
+## 3.2 Przedzial ufnosci dla frakcji zmienna drive
+### 3.2.1 Przy poziomie istotnosci równym 0.03
+```{r}
+p_ufnosci_frakcji_1 <- function(x, n, alpha = .03) {
+  koniec_lewy <- round(x + alpha * sqrt(x) * ((1-x))/n, 4)
+  koniec_prawy <- round(x  - alpha * sqrt(x) * ((1-x))/n, 4)
+  cat(paste((1-alpha)*100, "%",
+            "przy zalozeniu, ze cecha ma rozklad normalny, przedzial ufnosci  to:\n [",
+             koniec_lewy, ",", koniec_prawy, "]" ))
+}
+p_ufnosci_frakcji_1(rear_wheel_drive, liczba_drive)
+```
+### Interpretacja 
+#### przy zalozeniu, ze cecha ma ma rozklad normalny oraz poziom istotnosci wynosi 0.03. Przedzial ufnosci wyglada nastepujaco : [ 14430.8071 , 14433.1929 ]
+
+## 3.3 Podsumowanie zmiennej make
+```{r}
+make <- dane %>% 
+  filter(make == "Chevrolet") %>%
+  group_by(make) %>%
+  summarise(l_obserwacji = n())
+```
+
+### 3.3.1 Okreslenie liczby make oraz liczbe obserwacji Chevrolet
+```{r}
+liczba_make <- length(dane$make)
+liczba_make
+Chevrolet <- make$l_obserwacji
+Chevrolet
+```
+## 3.4 Przedzial ufnosci dla frakcji zmienna make
+### 3.4.1 Przy poziomie istotnosci równym 0.03
+```{r}
+p_ufnosci_frakcji_3 <- function(x, n, alpha = .03) {
+  koniec_lewy <- round(x + alpha * sqrt(x) * ((1-x))/n, 4)
+  koniec_prawy <- round(x - alpha * sqrt(x) * ((1-x))/n, 4)
+  cat(paste((1-alpha)*100, "%",
+            "przy zalozeniu, ze cecha ma rozklad normalny, przedzial ufnosci  to:\n [",
+             koniec_lewy, ",", koniec_prawy, "]" ))
+}
+p_ufnosci_frakcji_3(Chevrolet, liczba_make)
+```
+### Interpretacja 
+#### przy zalozeniu, ze cecha ma ma rozklad normalny oraz poziom istotnosci wynosi 0.03 . Przedzial ufnosci wyglada nastepujaco :[ 4184.8138 , 4185.1862 ]
+
+
+
+# 4 TESTOWANIE HIPOTEZ
+# 4.1 Testowanie zmiennej comb08
+```{r}
+t.test(comb)
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, odrzucamy hipoteze zerowa ze proba pochodzi z rozkladu normalnego
+
+
+```{r}
+t.test(comb,  m0 = 20.92546,  alternative = "less")
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, nie ma podstaw do odrzucenia hipotezy zerowej że m0 = 20.92546 i przyjecia hipotezy alternatywnej ze m0 < 20.92546
+
+```{r}
+t.test(comb, m0 = 25,  alternative = "greater")
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, nie ma podstaw do odrzucenia hipotezy zerowej, ze m0 = 25 i przyjecia hipotezy alternatywnej, ze m0 > 25
+
+## 4.2 Testowanie zmiennej barrels08
+
+```{r}
+t.test(barrels)
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, odrzucamy hipoteze zerowa ze proba pochodzi z rozkladu normalnego
+
+```{r}
+t.test(barrels,  m0 = 17.11725,  alternative = "less")
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, nie ma podstaw do odrzucenia hipotezy zerowej że m0 = 17.11725 i przyjecia hipotezy alternatywnej ze m0 < 17.11725
+
+```{r}
+t.test(barrels, m0 = 32,  alternative = "greater")
+```
+### Interpretacja: 
+#### Na poziomie istotnosci wynoszacym 0.05, nie ma podstaw do odrzucenia hipotezy zerowej, ze m0 = 32 i przyjecia hipotezy alternatywnej, ze m0 > 32
+
+# 5 .NIEZALEZNOSC ZMIENNYCH CZYNNIKOWYCH
+```{r}
+make_1 <- dane %>%
+  filter(make == "Jeep") %>%
+  group_by(make) %>%
+  summarise(l_obserwacji = n())
+
+liczba_make_1 <- make_1$l_obserwacji 
+liczba_make_1  
+```
+
+```{r}
+make_2 <- dane %>%
+  filter(make == "Audi") %>%
+  group_by(make) %>%
+  summarise(l_obserwacji = n())
+
+liczba_make_2 <- make_2$l_obserwacji 
+liczba_make_2  
+```
+```{r}
+chisq.test(c(liczba_make_1, liczba_make_2), correct = TRUE)
+```
+
+
+# 6 MODELE REGRESJI
+## 6.1 Model regresji prostej
+```{r}
+model_regresji <- dane %>%
+  mutate_if(is.character, list(factor))
+```
+
+
+```{r}
+model_01 <- lm(barrels08 ~ drive, data = model_regresji)
+summary(model_01)
+```
